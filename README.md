@@ -1,24 +1,37 @@
-# README
+# User
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| nickname           | string | null: false               |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| last_name          | string | null: false               |
+| first_name         | string | null: false               |
+| birthday           | date   | null: false               |
 
-Things you may want to cover:
+## Association
 
-* Ruby version
+has_many :project, through: :project_member
 
-* System dependencies
+# Project
 
-* Configuration
+| Column   | Type   | Options     |
+| -------- | ------ | ----------- |
+| name     | string | null: false |
+| overview | text   | null: false |
 
-* Database creation
+## Association
 
-* Database initialization
+has_many :user, through: :project_member
 
-* How to run the test suite
+# ProjectMember
 
-* Services (job queues, cache servers, search engines, etc.)
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| user    | references | null: false, foreign_key: true |
+| project | references | null: false, foreign_key: true |
 
-* Deployment instructions
+## Association
 
-* ...
+belongs_to :user <br>
+belongs_to :project
